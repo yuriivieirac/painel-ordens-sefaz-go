@@ -1,0 +1,114 @@
+body {
+  background:
+    linear-gradient(rgba(18, 18, 23, 0.85), rgba(18, 18, 23, 0.85)),
+    url('imgFundo.png') repeat;
+  background-position: center;
+  background-size: 225px 225px;
+  color: #eee;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 60px 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 5rem;
+  margin-bottom: 50px;
+  font-weight: 800;
+  text-align: center;
+  color: #61dafb;
+  text-shadow: 0 0 12px #61dafb80;
+}
+
+#qr-container {
+  background: #1f1f2e;
+  border: 3px solid #61dafb;
+  border-radius: 20px;
+  padding: 40px;
+  margin-bottom: 60px;
+  width: 350px;
+  text-align: center;
+  box-shadow: 0 0 25px #61dafb40;
+}
+
+#qr-container h2 {
+  color: #cbd5e1;
+  font-weight: 700;
+  margin-bottom: 25px;
+  font-size: 2.2rem;
+}
+
+#qr-container img {
+  width: 300px;
+  height: auto;
+  border-radius: 12px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+ul#lista-ordens {
+  list-style: none;
+  width: 90%;
+  max-width: 1000px;
+}
+
+li {
+  background: #232331;
+  margin: 25px 0;
+  padding: 40px 50px;
+  border-radius: 14px;
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ddd;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+li.nova {
+  background: linear-gradient(90deg, #007bff 0%, #00c6ff 100%);
+  color: white;
+  font-weight: 800;
+  box-shadow: 0 0 40px #00c6ff;
+  animation: pulse 1.4s infinite alternate;
+}
+
+li span {
+  margin-top: 20px;
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: #a0aec0;
+  letter-spacing: 0.06em;
+  font-style: italic;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 40px #00c6ff88;
+  }
+  100% {
+    box-shadow: 0 0 60px #00c6ffcc;
+  }
+}
+
+@media (max-width: 720px) {
+  ul#lista-ordens {
+    width: 95%;
+  }
+  body {
+    padding: 20px 15px;
+  }
+  h1 {
+    font-size: 2.5rem;
+  }
+  li {
+    font-size: 1.5rem;
+    padding: 20px;
+  }
+  li span {
+    font-size: 1.2rem;
+  }
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Painel Ordens de Serviço</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Painel de Controle - Ordens de Serviço</h1>
+
+  <div id="qr-container">
+    <h2>Escaneie o QR Code com o WhatsApp Administrador</h2>
+    <img id="qr-image" />
+  </div>
+
+  <ul id="lista-ordens"></ul>
+
+  <audio id="alerta" src="alerta.mp3.mp3"></audio>
+
+  <script>
+    const { ipcRenderer } = require('electron');
+    const lista = document.getElementById('lista-ordens');
+    const alerta = document.getElementById('alerta');
+    const qrImage = document.getElementById('qr-image');
+    const qrContainer = document.getElementById('qr-container');
+
+    let ultimoCodigoTocado = null;  // Guarda a última ordem que tocou som
+
+    ipcRenderer.on('qr-code', (event, url) => {
+      qrImage.src = url;
+      qrContainer.style.display = 'block';
+    });
+
+    ipcRenderer.on('ready', () => {
+      qrContainer.style.display = 'none';
+    });
+
+    ipcRenderer.on('nova-ordem', (event, ordens) => {
+      lista.innerHTML = '';
+
+      if (ordens.length === 0) return;
+
+      // Toca o som apenas se chegou uma ordem nova diferente da última tocada
+      if (ordens[0].codigo !== ultimoCodigoTocado) {
+        ultimoCodigoTocado = ordens[0].codigo;
+        alerta.play();
+      }
+
+      ordens.forEach((ordem, i) => {
+        const li = document.createElement('li');
+        li.innerHTML = `${ordem.nome} - ${ordem.codigo}<br><span>${ordem.dataHora}</span>`;
+        if (i === 0) li.classList.add('nova');
+        lista.appendChild(li);
+      });
+    });
+  </script>
+</body>
+</html>
