@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Painel Ordens de Serviço - Goiás</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header>
+    <img src="logo-economia.png" alt="Secretaria da Economia de Goiás" class="logo" />
+    <h1>Painel de Controle - Ordens de Serviço</h1>
+  </header>
+
+  <main>
+    <section id="qr-container" aria-label="Código QR para login WhatsApp">
+      <h2>Escaneie o QR Code com o WhatsApp Administrador</h2>
+      <img id="qr-image" alt="QR Code para autenticação WhatsApp" />
+    </section>
+
+    <!-- REMOVIDO: <section id="status"> -->
+
+    <section aria-label="Lista de ordens">
+      <ul id="lista-ordens"></ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>Secretaria da Economia – Governo de Goiás</p>
+  </footer>
+
+  <audio id="alerta" src="alerta.mp3.mp3" preload="auto"></audio>
+
+  <script>
+    const { ipcRenderer } = require('electron');
+    const lista = document.getElementById('lista-ordens');
+    const alerta = document.getElementById('alerta');
+    const qrImage = document.getElementById('qr-image');
+    const qrContainer = document.getElementById('qr-container');
+
+    let ultimoCodigoTocado = null;
+
+    ipcRenderer.on('qr-code', (event, url) => {
+      qrImage.src = url;
+      qrContainer.style.display = 'block';
+    });
+
+    ipcRenderer.on('ready', () => {
+      qrContainer.style.display = 'none';
+    });
+
+    ipcRenderer.on('nova-ordem', (event, ordens) => {
+      lista.innerHTML = '';
+
+      if (ordens.length === 0) return;
+
+      if (ordens[0].codigo !== ultimoCodigoTocado) {
+        ultimoCodigoTocado = ordens[0].codigo;
+        alerta.play();
+      }
+
+      ordens.forEach((ordem, i) => {
+        const li = document.createElement('li');
+        li.innerHTML = `${ordem.nome} - <strong>${ordem.codigo}</strong><br><span>${ordem.dataHora}</span>`;
+        if (i === 0) li.classList.add('nova');
+        lista.appendChild(li);
+      });
+    });
+  </script>
+</body>
+</html>
