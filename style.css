@@ -1,114 +1,178 @@
+/* Reset básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  background:
-    linear-gradient(rgba(18, 18, 23, 0.85), rgba(18, 18, 23, 0.85)),
-    url('imgFundo.png') repeat;
-  background-position: center;
-  background-size: 225px 225px;
-  color: #eee;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  padding: 60px 80px;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: #f4f9f4; /* verde muito claro */
+  color: #1a3c1a; /* verde escuro */
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
+  padding: 80px 50px;
+  font-size: 3.2rem; /* Aumentado para TV grande */
 }
 
-h1 {
-  font-size: 5rem;
-  margin-bottom: 50px;
+/* Header */
+header h1 {
   font-weight: 800;
+  font-size: 6rem; /* maior */
+  margin-bottom: 90px;
+  color: #2e7d32; /* verde médio */
   text-align: center;
-  color: #61dafb;
-  text-shadow: 0 0 12px #61dafb80;
+  text-shadow: 0 0 8px #81c784a0;
 }
 
+/* Container QR */
 #qr-container {
-  background: #1f1f2e;
-  border: 3px solid #61dafb;
+  background-color: white;
+  border: 5px solid #2e7d32;
   border-radius: 20px;
-  padding: 40px;
-  margin-bottom: 60px;
-  width: 350px;
+  padding: 80px 60px;
+  width: 700px;
+  max-width: 95vw;
   text-align: center;
-  box-shadow: 0 0 25px #61dafb40;
+  box-shadow: 0 6px 24px rgba(46, 125, 50, 0.4);
+  margin-bottom: 100px;
+  transition: box-shadow 0.3s ease;
+}
+
+#qr-container:hover {
+  box-shadow: 0 8px 36px rgba(46, 125, 50, 0.7);
 }
 
 #qr-container h2 {
-  color: #cbd5e1;
-  font-weight: 700;
-  margin-bottom: 25px;
-  font-size: 2.2rem;
+  font-weight: 600;
+  font-size: 3.8rem;
+  color: #2e7d32;
+  margin-bottom: 45px;
 }
 
 #qr-container img {
-  width: 300px;
+  width: 100%;
+  max-width: 600px;
   height: auto;
-  border-radius: 12px;
-  max-width: 100%;
-  object-fit: contain;
+  border-radius: 16px;
+  box-shadow: 0 0 20px #a5d6a7;
+  user-select: none;
 }
 
+/* Lista de ordens */
 ul#lista-ordens {
   list-style: none;
-  width: 90%;
-  max-width: 1000px;
+  width: 100%;
+  max-width: 1200px;
 }
 
+/* Itens da lista */
 li {
-  background: #232331;
-  margin: 25px 0;
-  padding: 40px 50px;
-  border-radius: 14px;
-  font-size: 3rem;
+  background-color: white;
+  border-left: 10px solid #388e3c; /* verde vibrante à esquerda */
+  margin-bottom: 50px;
+  padding: 50px 70px;
+  border-radius: 20px;
+  font-size: 4.5rem;
   font-weight: 700;
-  color: #ddd;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
-  transition: background 0.3s ease, box-shadow 0.3s ease;
+  color: #1a3c1a;
+  box-shadow: 0 8px 20px rgba(46, 125, 50, 0.2);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+li:hover {
+  background-color: #e8f5e9;
+  box-shadow: 0 10px 30px rgba(46, 125, 50, 0.4);
 }
 
 li.nova {
-  background: linear-gradient(90deg, #007bff 0%, #00c6ff 100%);
+  background: linear-gradient(90deg, #43a047 0%, #81c784 100%);
   color: white;
-  font-weight: 800;
-  box-shadow: 0 0 40px #00c6ff;
-  animation: pulse 1.4s infinite alternate;
+  font-weight: 900;
+  border-left-color: #1b5e20;
+  box-shadow: 0 0 40px #66bb6a;
+  animation: pulseGreen 1.8s infinite alternate;
+}
+
+li.nova strong {
+  text-shadow: 0 0 7px rgba(255 255 255 / 0.9);
 }
 
 li span {
-  margin-top: 20px;
-  font-size: 2.2rem;
-  font-weight: 400;
-  color: #a0aec0;
-  letter-spacing: 0.06em;
+  margin-top: 28px;
+  font-size: 3.2rem;
+  font-weight: 700;
   font-style: italic;
+  color: #2e7d32;
+  letter-spacing: 0.06em;
+  display: block;
+  text-shadow: 0 0 3px rgba(46, 125, 50, 0.5);
 }
 
-@keyframes pulse {
+/* Animação de pulso para ordem nova */
+@keyframes pulseGreen {
   0% {
-    box-shadow: 0 0 40px #00c6ff88;
+    box-shadow: 0 0 40px #66bb6aaa;
   }
   100% {
-    box-shadow: 0 0 60px #00c6ffcc;
+    box-shadow: 0 0 70px #81c784ee;
   }
 }
 
+/* Responsividade */
 @media (max-width: 720px) {
-  ul#lista-ordens {
-    width: 95%;
-  }
   body {
-    padding: 20px 15px;
+    padding: 40px 30px;
+    font-size: 2.2rem; /* reduz um pouco pra celular */
   }
-  h1 {
-    font-size: 2.5rem;
+  header h1 {
+    font-size: 4.5rem;
+    margin-bottom: 60px;
+  }
+  #qr-container {
+    padding: 40px 30px;
+    width: 100%;
+  }
+  #qr-container h2 {
+    font-size: 2.8rem;
+  }
+  ul#lista-ordens {
+    max-width: 100%;
   }
   li {
-    font-size: 1.5rem;
-    padding: 20px;
+    font-size: 3rem;
+    padding: 35px 45px;
   }
   li span {
-    font-size: 1.2rem;
+    font-size: 2rem;
   }
+}
+
+/* Logo */
+.logo {
+  max-height: 150px;
+  margin-bottom: 50px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Rodapé institucional com efeito destacado */
+footer {
+  margin-top: auto;
+  width: 100%;
+  max-width: 1200px;
+  padding: 40px 50px;
+  background-color: #e8f5e9; /* verde claro */
+  color: #1a3c1a; /* verde escuro */
+  font-weight: 700;
+  text-align: center;
+  font-size: 3rem;
+  border-left: 8px solid #2e7d32;
+  border-radius: 0 12px 12px 0;
+  box-shadow: 0 -2px 18px rgba(46, 125, 50, 0.15);
+  user-select: none;
 }

@@ -2,20 +2,32 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Painel Ordens de Serviço</title>
+  <title>Painel Ordens de Serviço - Goiás</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <h1>Painel de Controle - Ordens de Serviço</h1>
+  <header>
+    <img src="logo-economia.png" alt="Secretaria da Economia de Goiás" class="logo" />
+    <h1>Painel de Controle - Ordens de Serviço</h1>
+  </header>
 
-  <div id="qr-container">
-    <h2>Escaneie o QR Code com o WhatsApp Administrador</h2>
-    <img id="qr-image" />
-  </div>
+  <main>
+    <section id="qr-container" aria-label="Código QR para login WhatsApp">
+      <h2>Escaneie o QR Code com o WhatsApp Administrador</h2>
+      <img id="qr-image" alt="QR Code para autenticação WhatsApp" />
+    </section>
 
-  <ul id="lista-ordens"></ul>
+    <section aria-label="Lista de ordens">
+      <ul id="lista-ordens"></ul>
+    </section>
+  </main>
 
-  <audio id="alerta" src="alerta.mp3.mp3"></audio>
+  <footer>
+    <p>Secretaria da Economia – Governo de Goiás</p>
+  </footer>
+
+  <audio id="alerta" src="alerta.mp3.mp3" preload="auto"></audio>
 
   <script>
     const { ipcRenderer } = require('electron');
@@ -24,7 +36,7 @@
     const qrImage = document.getElementById('qr-image');
     const qrContainer = document.getElementById('qr-container');
 
-    let ultimoCodigoTocado = null;  // Guarda a última ordem que tocou som
+    let ultimoCodigoTocado = null;
 
     ipcRenderer.on('qr-code', (event, url) => {
       qrImage.src = url;
@@ -40,7 +52,6 @@
 
       if (ordens.length === 0) return;
 
-      // Toca o som apenas se chegou uma ordem nova diferente da última tocada
       if (ordens[0].codigo !== ultimoCodigoTocado) {
         ultimoCodigoTocado = ordens[0].codigo;
         alerta.play();
@@ -48,7 +59,7 @@
 
       ordens.forEach((ordem, i) => {
         const li = document.createElement('li');
-        li.innerHTML = `${ordem.nome} - ${ordem.codigo}<br><span>${ordem.dataHora}</span>`;
+        li.innerHTML = `${ordem.nome} - <strong>${ordem.codigo}</strong><br><span>${ordem.dataHora}</span>`;
         if (i === 0) li.classList.add('nova');
         lista.appendChild(li);
       });
