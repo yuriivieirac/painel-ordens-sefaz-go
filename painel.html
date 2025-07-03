@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Painel Ordens de Serviço - Goiás</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
 </head>
 <body>
@@ -13,13 +13,14 @@
   </header>
 
   <main>
-    <section id="qr-container" aria-label="Código QR para login WhatsApp">
+    <section id="qr-container" aria-label="Código QR para login WhatsApp" style="display:none;">
       <h2>Escaneie o QR Code com o WhatsApp Administrador</h2>
       <img id="qr-image" alt="QR Code para autenticação WhatsApp" />
     </section>
 
-    <section aria-label="Lista de ordens">
-      <ul id="lista-ordens"></ul>
+    <section aria-label="Lista de ordens" class="grid-ordens">
+      <ul id="coluna-esquerda" class="coluna"></ul>
+      <ul id="coluna-direita" class="coluna"></ul>
     </section>
   </main>
 
@@ -31,7 +32,8 @@
 
   <script>
     const { ipcRenderer } = require('electron');
-    const lista = document.getElementById('lista-ordens');
+    const colunaEsquerda = document.getElementById('coluna-esquerda');
+    const colunaDireita = document.getElementById('coluna-direita');
     const alerta = document.getElementById('alerta');
     const qrImage = document.getElementById('qr-image');
     const qrContainer = document.getElementById('qr-container');
@@ -48,20 +50,34 @@
     });
 
     ipcRenderer.on('nova-ordem', (event, ordens) => {
-      lista.innerHTML = '';
+      // Limpa as colunas
+      colunaEsquerda.innerHTML = '';
+      colunaDireita.innerHTML = '';
 
-      if (ordens.length === 0) return;
-
-      if (ordens[0].codigo !== ultimoCodigoTocado) {
-        ultimoCodigoTocado = ordens[0].codigo;
-        alerta.play();
+      if (!ordens || ordens.length === 0) {
+        ultimoCodigoTocado = null; // Resetar código tocado para novos dados futuros
+        return;
       }
 
-      ordens.forEach((ordem, i) => {
+      // Toca alerta somente se a ordem mais recente mudou
+      if (ordens[0].codigo !== ultimoCodigoTocado) {
+        ultimoCodigoTocado = ordens[0].codigo;
+        alerta.play().catch(() => {
+          // Erro pode ocorrer se o áudio não puder tocar automaticamente, pode ignorar
+        });
+      }
+
+      // Divide as ordens entre as duas colunas
+      ordens.slice(0, 10).forEach((ordem, i) => {
         const li = document.createElement('li');
-        li.innerHTML = `${ordem.nome} - <strong>${ordem.codigo}</strong><br><span>${ordem.dataHora}</span>`;
+        li.innerHTML = `<div class="linha1">${ordem.nome} - <strong>${ordem.codigo}</strong></div><span>${ordem.dataHora}</span>`;
         if (i === 0) li.classList.add('nova');
-        lista.appendChild(li);
+
+        if (i < 5) {
+          colunaEsquerda.appendChild(li);
+        } else {
+          colunaDireita.appendChild(li);
+        }
       });
     });
   </script>
