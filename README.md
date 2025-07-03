@@ -6,36 +6,42 @@ Este projeto é um painel em tempo real desenvolvido para a equipe de técnicos 
 
 ## 🚀 Funcionalidades principais
 
-✅ Conexão ao WhatsApp da chefia via QR Code  
+✅ Conexão ao WhatsApp da administração via QR Code  
 ✅ Leitura automática das mensagens recebidas no grupo da equipe  
-✅ Exibição das **últimas 8 ordens de serviço**, com destaque visual para a mais recente  
+✅ Exibição das **últimas 10 ordens de serviço**, com destaque visual para a mais recente  
 ✅ Alerta sonoro sempre que chega uma nova ordem  
-✅ Cancelamento de ordens diretamente pelo WhatsApp através de comando específico  
-✅ Interface otimizada para exibição em **TV de 60 polegadas**, com layout responsivo  
+✅ Atualização automática no painel ao **editar mensagens** no WhatsApp 
+✅ Exclusão automática no painel ao **excluir mensagens** no WhatsApp
+✅ Validação para que as ordens comecem somente com "SS" ou "IN", seguido do número (exemplo: SS123456 ou IN123456)
+✅ Interface otimizada para exibição em TV de 60 polegadas, com layout responsivo
 
 ---
 
 ## 📋 Como enviar uma Ordem de Serviço (Instruções para administradores do grupo)
 
-### ➡️ Formato de envio de uma nova ordem:
+### ➡️ Formato válido para envio de uma nova ordem:
+"Apenas mensagens que começam com SS ou IN (maiúsculo ou minúsculo), seguidas de números, serão consideradas."
+  
+**Exemplo em caso de várias O.S:**
+```
+Yuri  
+SS102030  
+SS302010  
+IN101010
+```
 
-### Exemplos de mensagens válidas no grupo:
-Yuri
-SS102030
-SS302010
-
-ou
-
-Yuri - SS102030
+**Exemplo em caso de uma O.S:**  
+1° Modelo: `Yuri - SS102030`  
+2° Modelo: `Yuri SS102030`  
+3° Modelo: `Yuri ss102030`  
+4° Modelo: `Yuri - ss102030`
 
 ---
 
-### ➡️ Como cancelar uma ordem:
+### ➡️ Edição e exclusão de mensagens:
 
-Para cancelar uma ordem que já está na tela, envie no grupo o seguinte comando:
-Cancelar SS102030
-
-**Observação:** Apenas administradores do grupo têm permissão para cancelar ordens.
+- Se um administrador **editar** uma mensagem que contém uma ordem, a ordem será atualizada automaticamente no painel.
+- Se uma mensagem com ordem for **excluída para todos** no WhatsApp, a ordem será removida automaticamente do painel.
 
 ---
 
@@ -57,5 +63,5 @@ Cancelar SS102030
 - Node.js instalado na máquina
 - Uma conta de WhatsApp com acesso ao grupo onde as ordens são enviadas
 
-Observação: Na primeira execução, será necessário escanear o QR Code com o WhatsApp da coordenação para autenticação.
+Observação: Na primeira execução, será necessário escanear o QR Code com o WhatsApp da administração para autenticação.
 
