@@ -10,13 +10,10 @@ Este projeto é um painel em tempo real desenvolvido para a equipe de técnicos 
 ✅ Leitura automática das mensagens recebidas no grupo da equipe  
 ✅ Exibição das **últimas 10 ordens de serviço**, com destaque visual para a mais recente  
 ✅ Alerta sonoro sempre que chega uma nova ordem  
-✅ Atualização automática no painel ao **editar mensagens** no WhatsApp
-
-✅ Exclusão automática no painel ao **excluir mensagens** no WhatsApp
-
-✅ Validação para que as ordens comecem somente com "SS" ou "IN", seguido do número (exemplo: SS123456 ou IN123456)
-
-✅ Interface otimizada para exibição em TV de 60 polegadas, com layout responsivo
+✅ Atualização automática no painel ao **editar mensagens** no WhatsApp  
+✅ Exclusão automática no painel ao **excluir mensagens** no WhatsApp  
+✅ Validação para que as ordens comecem somente com "SS" ou "IN", seguido do número (exemplo: SS123456 ou IN123456)  
+✅ Interface otimizada para exibição em TV de 60 polegadas, com layout responsivo  
 
 ---
 
